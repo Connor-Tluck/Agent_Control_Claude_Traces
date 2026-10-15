@@ -1,0 +1,311 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --background: 0 0% 100%;
+    --foreground: 240 10% 9%;
+    --surface: 240 5% 97.6%;
+    --raised: 0 0% 100%;
+    --muted: 240 5% 95%;
+    --muted-foreground: 240 4% 44%;
+    --subtle: 240 4% 62%;
+    --accent: 240 5% 93%;
+    --accent-foreground: 240 10% 9%;
+    --primary: 240 10% 9%;
+    --primary-foreground: 0 0% 100%;
+    --border: 240 6% 90%;
+    --border-strong: 240 5% 82%;
+    --ring: 221 83% 53%;
+    --brand: 221 83% 53%;
+    --brand-soft: 221 90% 96%;
+    --success: 142 72% 32%;
+    --danger: 0 72% 50%;
+    --radius: 0.625rem;
+
+    --editor-bg: 0 0% 100%;
+    --editor-gutter: 240 4% 66%;
+    --editor-gutter-active: 240 6% 30%;
+    --editor-line: 240 5% 96.5%;
+    --editor-selection: 221 90% 92%;
+
+    --trace-code: 240 6% 24%;
+    --trace-runner: 240 5% 86%;
+    --trace-request: 0 0% 100%;
+    --trace-request-border: 240 5% 64%;
+    --trace-tool: 214 84% 64%;
+    --trace-model: 15 63% 60%;
+    --trace-control: 252 70% 64%;
+    --trace-grid: 240 6% 92%;
+    --trace-stripe: 240 5% 98.2%;
+  }
+
+  .dark {
+    color-scheme: dark;
+    --background: 240 6% 7%;
+    --foreground: 0 0% 95%;
+    --surface: 240 5% 9.4%;
+    --raised: 240 5% 11.5%;
+    --muted: 240 4% 13.5%;
+    --muted-foreground: 240 5% 63%;
+    --subtle: 240 4% 46%;
+    --accent: 240 4% 16%;
+    --accent-foreground: 0 0% 95%;
+    --primary: 0 0% 95%;
+    --primary-foreground: 240 6% 8%;
+    --border: 240 4% 17%;
+    --border-strong: 240 4% 25%;
+    --ring: 213 94% 68%;
+    --brand: 213 94% 68%;
+    --brand-soft: 217 45% 17%;
+    --success: 142 60% 58%;
+    --danger: 0 84% 66%;
+
+    --editor-bg: 240 6% 8.2%;
+    --editor-gutter: 240 4% 36%;
+    --editor-gutter-active: 240 5% 72%;
+    --editor-line: 240 5% 11%;
+    --editor-selection: 217 45% 24%;
+
+    --trace-code: 240 5% 84%;
+    --trace-runner: 240 4% 26%;
+    --trace-request: 240 6% 8%;
+    --trace-request-border: 240 4% 52%;
+    --trace-tool: 213 90% 66%;
+    --trace-model: 15 63% 62%;
+    --trace-control: 252 80% 74%;
+    --trace-grid: 240 4% 14%;
+    --trace-stripe: 240 5% 9%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  ::selection {
+    background: hsl(var(--editor-selection));
+  }
+}
+
+.thin-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--border-strong)) transparent;
+}
+
+.thin-scroll::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.thin-scroll::-webkit-scrollbar-thumb {
+  background: hsl(var(--border-strong));
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
+.thin-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+.streaming-caret::after {
+  content: '';
+  display: inline-block;
+  width: 0.45em;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: currentColor;
+  animation: caret 1s steps(1) infinite;
+}
+
+@keyframes file-flash {
+  from {
+    background: hsl(var(--brand-soft));
+  }
+  to {
+    background: transparent;
+  }
+}
+
+.file-flash {
+  animation: file-flash 1.6s ease-out;
+}
+
+/* Editor syntax theme. Light follows GitHub Light, dark follows VS Code Dark+. */
+.code-view {
+  --tok-text: #1f2328;
+  --tok-comment: #6e7781;
+  --tok-keyword: #cf222e;
+  --tok-string: #0a3069;
+  --tok-number: #0550ae;
+  --tok-function: #8250df;
+  --tok-type: #0e7490;
+  --tok-property: #0550ae;
+  --tok-punctuation: #57606a;
+  --tok-operator: #cf222e;
+  --tok-tag: #116329;
+  --tok-attr: #0550ae;
+  --tok-regex: #116329;
+  --tok-title: #0550ae;
+  --tok-deleted: #82071e;
+  --tok-inserted: #116329;
+  color: var(--tok-text);
+  tab-size: 2;
+}
+
+.dark .code-view {
+  --tok-text: #d4d4d4;
+  --tok-comment: #6a9955;
+  --tok-keyword: #c586c0;
+  --tok-string: #a5d6a7;
+  --tok-number: #b5cea8;
+  --tok-function: #dcdcaa;
+  --tok-type: #4ec9b0;
+  --tok-property: #9cdcfe;
+  --tok-punctuation: #a1a1aa;
+  --tok-operator: #d4d4d4;
+  --tok-tag: #569cd6;
+  --tok-attr: #9cdcfe;
+  --tok-regex: #d16969;
+  --tok-title: #569cd6;
+  --tok-deleted: #f48771;
+  --tok-inserted: #89d185;
+}
+
+.code-view .token.comment,
+.code-view .token.prolog,
+.code-view .token.doctype,
+.code-view .token.cdata {
+  color: var(--tok-comment);
+  font-style: italic;
+}
+
+.code-view .token.keyword,
+.code-view .token.atrule,
+.code-view .token.important,
+.code-view .token.rule {
+  color: var(--tok-keyword);
+}
+
+.code-view .token.string,
+.code-view .token.char,
+.code-view .token.template-string,
+.code-view .token.attr-value,
+.code-view .token.url {
+  color: var(--tok-string);
+}
+
+.code-view .token.template-punctuation,
+.code-view .token.interpolation-punctuation {
+  color: var(--tok-keyword);
+}
+
+.code-view .token.number,
+.code-view .token.boolean,
+.code-view .token.constant,
+.code-view .token.symbol {
+  color: var(--tok-number);
+}
+
+.code-view .token.function,
+.code-view .token.function-variable,
+.code-view .token.method {
+  color: var(--tok-function);
+}
+
+.code-view .token.class-name,
+.code-view .token.builtin,
+.code-view .token.namespace,
+.code-view .token.maybe-class-name {
+  color: var(--tok-type);
+}
+
+.code-view .token.property,
+.code-view .token.parameter,
+.code-view .token.variable,
+.code-view .token.property-access {
+  color: var(--tok-property);
+}
+
+.code-view .token.punctuation {
+  color: var(--tok-punctuation);
+}
+
+.code-view .token.annotation,
+.code-view .token.decorator {
+  color: var(--tok-function);
+}
+
+.code-view .token.operator,
+.code-view .token.arrow,
+.code-view .token.spread {
+  color: var(--tok-operator);
+}
+
+.code-view .token.tag,
+.code-view .token.selector {
+  color: var(--tok-tag);
+}
+
+.code-view .token.attr-name {
+  color: var(--tok-attr);
+}
+
+.code-view .token.regex {
+  color: var(--tok-regex);
+}
+
+.code-view .token.title,
+.code-view .token.title .token.punctuation {
+  color: var(--tok-title);
+  font-weight: 600;
+}
+
+.code-view .token.bold {
+  font-weight: 600;
+}
+
+.code-view .token.italic {
+  font-style: italic;
+}
+
+.code-view .token.code {
+  color: var(--tok-text);
+}
+
+.code-view .token.code-snippet {
+  color: var(--tok-string);
+}
+
+.code-view .token.list,
+.code-view .token.hr,
+.code-view .token.blockquote {
+  color: var(--tok-keyword);
+}
+
+.code-view .token.deleted {
+  color: var(--tok-deleted);
+}
+
+.code-view .token.inserted {
+  color: var(--tok-inserted);
+}
